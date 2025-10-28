@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ProfileCard from "./ProfileCard";
+import { NavLink } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 /**
  * Renders a list of ProfileCards, controlling the layout using Bootstrap columns.
@@ -18,7 +20,14 @@ function ProfileList({ people, cols = 3 }) {
           key={person.id}
           className={`${colClass} d-flex justify-content-center`}
         >
-          <ProfileCard {...person} />
+          <Card
+            as={NavLink}
+            to={`/lab02/${person.id}`}
+            className="w-100 text-decoration-none border-0"
+            style={{ transition: "transform 0.2s", cursor: "pointer" }}
+          >
+            <ProfileCard {...person} />
+          </Card>
         </div>
       ))}
     </div>

@@ -9,18 +9,26 @@ import PropTypes from "prop-types";
  */
 function ProfileParagraph({ label, value }) {
   return (
-    <div className="d-flex mb-2">
-      <strong className="text-muted mr-2" style={{ minWidth: "120px" }}>
+    <div className="d-flex mb-1">
+      <strong
+        className="text-muted mr-2"
+        style={{ minWidth: "100px", fontSize: "0.9rem" }}
+      >
         {label}:
       </strong>
-      <p className="mb-0 text-dark">{value}</p>
+      <p
+        className="mb-0 text-dark"
+        style={{ overflowWrap: "break-word", fontSize: "0.9rem" }}
+      >
+        {value}
+      </p>
     </div>
   );
 }
 
 ProfileParagraph.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default ProfileParagraph;
