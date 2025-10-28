@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import AppContext from "../../../data/AppContext";
 import { Row, Col } from "react-bootstrap";
+
+import useData from "../hooks/useData";
 
 // eslint-disable-next-line no-unused-vars
 function MyContainer({ element: ElementComponent }) {
-  const { items } = useContext(AppContext);
+  const items = useData();
 
   return (
     <Row>

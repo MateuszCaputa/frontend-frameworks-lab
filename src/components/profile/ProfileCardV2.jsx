@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Card, Button, Form, Stack, Badge } from "react-bootstrap";
 import RatingBar from "../ui/RatingBar";
-import AppContext from "../../../data/AppContext";
 import { Link } from "react-router-dom";
 
+import useDispatch from "../hooks/useDispatch";
+
 function ProfileCardV2({ id, name, rating, checked, email, phone }) {
-  const { dispatch } = useContext(AppContext);
+  const dispatch = useDispatch();
 
   const handleDelete = () => {
     dispatch({ type: "delete", id: id });

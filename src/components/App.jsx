@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react"; // AKTUALIZACJA: usunięto 'useReducer'
 import { Routes, Route } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
@@ -8,18 +8,24 @@ import Lab03 from "../pages/Lab03";
 import Lab04 from "../pages/Lab04";
 import NotFound from "../pages/NotFound";
 
-import AppContext from "../../data/AppContext";
-import AppReducer from "../../data/AppReducer";
-import { initialData } from "../../data/initialData";
-
+// Importy dla formularzy (Lab 4)
 import PersonAddForm from "../pages/forms/PersonAddForm";
 import PersonEditForm from "../pages/forms/PersonEditForm";
 
+// AKTUALIZACJA: (Lab 5) Import nowego Providera z 'src/context'
+import AppProvider from "../context/AppProvider";
+
+// AKTUALIZACJA: (Lab 5) Import nowych stron
+import Lab05 from "../pages/Lab05";
+import UserDetailsPage from "../pages/UserDetailsPage";
+import PostCommentsPage from "../pages/PostCommentsPage";
+
 function App() {
-  const [state, dispatch] = useReducer(AppReducer, initialData);
+  // Logika 'useReducer' została przeniesiona do AppProvider
 
   return (
-    <AppContext.Provider value={{ items: state, dispatch: dispatch }}>
+    // Używamy AppProvider (Lab 5) zamiast AppContext.Provider
+    <AppProvider>
       <Routes>
         <Route element={<RootLayout />}>
           <Route path="/" element={<Home />} />
@@ -31,10 +37,21 @@ function App() {
           <Route path="/lab04" element={<Lab04 />} />
           <Route path="/lab04/add" element={<PersonAddForm />} />
           <Route path="/lab04/edit/:id" element={<PersonEditForm />} />
+
+          {/* AKTUALIZACJA: (Lab 5) Te linie muszą tu być.
+            To jest przyczyna Twojego błędu 404.
+          */}
+          <Route path="/lab05" element={<Lab05 />} />
+          <Route path="/lab05/users/:id" element={<UserDetailsPage />} />
+          <Route
+            path="/lab05/posts/:id/comments"
+            element={<PostCommentsPage />}
+          />
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-    </AppContext.Provider>
+    </AppProvider>
   );
 }
 
