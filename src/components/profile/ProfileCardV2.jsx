@@ -1,40 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Card, Button, Form, Stack, Badge } from "react-bootstrap";
 import RatingBar from "../ui/RatingBar";
+import AppContext from "../../../data/AppContext";
+import { Link } from "react-router-dom";
 
-/**
- * Ten komponent jest "głupi" (dump component) - nie ma własnego stanu.
- * Otrzymuje wszystkie dane (w tym 'rating' i 'checked') oraz funkcję 'dispatch'
- * jako właściwości (props) od nadrzędnego kontenera.
- * * @param {object} props
- * @param {number} props.id - ID osoby
- * @param {string} props.name - Imię osoby
- * @param {number} props.rating - Ocena (0-10)
- * @param {boolean} props.checked - Czy osoba jest zaznaczona
- * @param {function} props.dispatch - Funkcja 'dispatch' z 'useReducer'
- */
-function ProfileCardV2({ id, name, rating, checked, dispatch }) {
+function ProfileCardV2({ id, name, rating, checked, email, phone }) {
+  const { dispatch } = useContext(AppContext);
+
   const handleDelete = () => {
-    dispatch({
-      type: "delete",
-      id: id,
-    });
+    dispatch({ type: "delete", id: id });
   };
 
   const handleRate = () => {
-    dispatch({
-      type: "rate",
-      id: id,
-      rating: rating,
-    });
+    dispatch({ type: "rate", id: id, rating: rating });
   };
 
   const handleCheck = () => {
-    dispatch({
-      type: "check",
-      id: id,
-    });
+    dispatch({ type: "check", id: id });
   };
 
   return (
@@ -54,15 +37,23 @@ function ProfileCardV2({ id, name, rating, checked, dispatch }) {
 
         <RatingBar rate={rating} />
 
+        <Card.Text className="text-muted small mt-2">
+          {email} <br /> {phone}
+        </Card.Text>
+
         <Stack direction="horizontal" gap={2} className="mt-3">
-          <Button variant="outline-secondary" size="sm">
+          <Button
+            as={Link}
+            to={`/lab04/edit/${id}`}
+            variant="outline-secondary"
+            size="sm"
+          >
             Edit
           </Button>
 
           <Button variant="primary" size="sm" onClick={handleRate}>
             Rate ({rating})
           </Button>
-
           <Button variant="danger" size="sm" onClick={handleDelete}>
             Delete
           </Button>
@@ -82,11 +73,12 @@ function ProfileCardV2({ id, name, rating, checked, dispatch }) {
 }
 
 ProfileCardV2.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   name: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   checked: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
 };
 
 export default ProfileCardV2;
