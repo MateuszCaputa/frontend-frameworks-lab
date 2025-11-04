@@ -4,6 +4,12 @@ import { people } from "../module-data";
 import ProfileCard from "../components/profile/ProfileCard";
 import { Alert, Card, Button } from "react-bootstrap";
 
+/**
+ * (Lab 2, Task 2, 4, 5)
+ * Renders the profile detail page.
+ * Fetches the person's ID from the URL parameters using 'useParams'.
+ * Handles cases for missing ID or non-existent person.
+ */
 function Lab02() {
   const { id: paramId } = useParams();
   const personId = parseInt(paramId, 10);

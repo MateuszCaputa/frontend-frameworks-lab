@@ -3,6 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import useFetch from "../components/hooks/useFetch";
 import { Card, Spinner, Alert, Button } from "react-bootstrap";
 
+/**
+ * (Lab 5, Task 5.1)
+ * Renders the page for displaying details for a single user.
+ * Fetches the user data based on the 'id' from the URL parameters.
+ */
 function UserDetailsPage() {
   const { id } = useParams();
   const {

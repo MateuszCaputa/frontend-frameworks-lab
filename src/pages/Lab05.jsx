@@ -5,6 +5,13 @@ import useFetch from "../components/hooks/useFetch";
 import TableDataReducer from "../../data/TableDataReducer";
 import TableHeaderWithSort from "../components/common/TableHeaderWithSort";
 
+/**
+ * (Lab 5, Task 3, 4, 5)
+ * Renders the page for Lab 5.
+ * Fetches data from JSONPlaceholder using the 'useFetch' hook.
+ * Displays data in a sortable table using 'useReducer' (TableDataReducer).
+ * Links to user details and post comments pages.
+ */
 function Lab05() {
   const [tableState, dispatch] = useReducer(TableDataReducer, {
     data: [],

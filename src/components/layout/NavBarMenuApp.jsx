@@ -2,6 +2,11 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
+/**
+ * (Lab 2, Task 1 & 3)
+ * Renders the main application navigation bar.
+ * Uses React Bootstrap components and NavLink for active routing state.
+ */
 function NavBarMenuApp() {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">

@@ -5,7 +5,10 @@ import { NavLink } from "react-router-dom";
 import { Card } from "react-bootstrap";
 
 /**
+ * (Lab 1, Task 7)
  * Renders a list of ProfileCards, controlling the layout using Bootstrap columns.
+ * Each card links to the profile's detail page (Lab 2).
+ *
  * @param {object} props - Component properties.
  * @param {array} props.people - Array of person objects.
  * @param {number} props.cols - Number of columns to display on large screens.

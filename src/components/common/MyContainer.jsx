@@ -4,6 +4,14 @@ import { Row, Col } from "react-bootstrap";
 
 import useData from "../hooks/useData";
 
+/**
+ * (Lab 3, Task 2 & 7) & (Lab 5, Task 2 & 4)
+ * A generic container component.
+ * Renders a list of 'ElementComponent' using data from the 'useData' hook.
+ *
+ * @param {object} props - Component properties.
+ * @param {React.ElementType} props.element - The component to render for each item.
+ */
 // eslint-disable-next-line no-unused-vars
 function MyContainer({ element: ElementComponent }) {
   const items = useData();

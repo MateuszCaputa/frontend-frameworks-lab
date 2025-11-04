@@ -1,16 +1,17 @@
-// Zadanie 1 & 8 (Lab 1): ProfileCard Component
 import React from "react";
 import PropTypes from "prop-types";
-import ProfileParagraph from "./ProfileParagraph"; // Ścieżka zaktualizowana
+import ProfileParagraph from "./ProfileParagraph";
 
 /**
- * Displays a single user's profile card.
- * @param {object} profile - Object containing user profile data.
- * @param {number} profile.id - User ID.
- * @param {string} profile.name - User's full name.
- * @param {string} profile.email - User's email address.
- * @param {string} profile.phone - User's phone number.
- * @param {string} profile.birthDate - User's birth date.
+ * (Lab 1, Task 1 & 8)
+ * Displays a non-interactive profile card (used in Lab 1 / Lab 2).
+ *
+ * @param {object} props - Component properties.
+ * @param {number} props.id - User ID.
+ * @param {string} props.name - User's full name.
+ * @param {string} props.email - User's email address.
+ * @param {string} props.phone - User's phone number.
+ * @param {string} props.birthDate - User's birth date.
  */
 function ProfileCard({ id, name, email, phone, birthDate }) {
   return (

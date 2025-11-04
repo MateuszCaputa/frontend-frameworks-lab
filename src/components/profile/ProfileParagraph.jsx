@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 /**
+ * (Lab 1, Task 1 & 8)
  * Renders a single row of user profile information.
  * @param {object} props - Component properties.
  * @param {string} props.label - The descriptive label (e.g., "Email").
- * @param {string} props.value - The data value for the label.
+ * @param {string|number} props.value - The data value for the label.
  */
 function ProfileParagraph({ label, value }) {
   return (

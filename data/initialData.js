@@ -1,3 +1,8 @@
+/**
+ * (Lab 4, Refactor)
+ * Initial data set for the application state (useReducer).
+ * Used by AppProvider to initialize the global state.
+ */
 export const initialData = [
   {
     id: 1,

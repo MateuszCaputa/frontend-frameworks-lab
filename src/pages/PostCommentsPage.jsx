@@ -3,6 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import useFetch from "../components/hooks/useFetch";
 import { Card, Spinner, Alert, ListGroup, Button } from "react-bootstrap";
 
+/**
+ * (Lab 5, Task 5.3)
+ * Renders the page for displaying comments for a single post.
+ * Fetches both the post data and the comments data separately.
+ */
 function PostCommentsPage() {
   const { id } = useParams();
 

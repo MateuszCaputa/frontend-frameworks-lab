@@ -4,6 +4,11 @@ import { Outlet } from "react-router-dom";
 import NavBarMenuApp from "../components/layout/NavBarMenuApp";
 import FooterApp from "../components/layout/FooterApp";
 
+/**
+ * (Lab 2, Task 1 & 6)
+ * The main application layout component.
+ * Renders the Navbar, Footer, and the main content area via <Outlet>.
+ */
 function RootLayout() {
   return (
     <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>

@@ -3,6 +3,11 @@ import { people } from "../module-data";
 import ProfileList from "../components/profile/ProfileList";
 import { Alert } from "react-bootstrap";
 
+/**
+ * (Lab 1) & (Lab 2, Preparation)
+ * Renders the page for Lab 1, which displays the list of profile cards.
+ * Includes a warning if the data module is empty.
+ */
 function Lab01() {
   if (people.length === 0) {
     return (

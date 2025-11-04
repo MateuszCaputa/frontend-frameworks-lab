@@ -1,6 +1,11 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 
+/**
+ * (Lab 2, Task 1)
+ * Renders the main application footer.
+ * Displays copyright info and author email.
+ */
 function FooterApp() {
   const currentYear = new Date().getFullYear();
   const authorEmail = "mateusz.caputa@microsoft.wsei.edu.pl";

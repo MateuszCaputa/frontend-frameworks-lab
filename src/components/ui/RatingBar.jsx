@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 /**
- * @param {object} props
- * @param {number} props.rate - Aktualna ocena (0-10).
+ * (Lab 3, Task 5)
+ * Renders a 10-star rating bar.
+ * The number of filled stars is based on the 'rate' prop.
+ *
+ * @param {object} props - Component properties.
+ * @param {number} props.rate - The current rating (0-10).
  */
 function RatingBar({ rate }) {
   const stars = [];

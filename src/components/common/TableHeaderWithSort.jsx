@@ -2,6 +2,16 @@ import React from "react";
 import { Dropdown, ButtonGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+/**
+ * (Lab 5, Task 3)
+ * Renders a table header cell (<th>) with a title and a sort dropdown button.
+ * Dispatches sort actions ('sort_asc', 'sort_desc', 'sort_natural').
+ *
+ * @param {object} props - Component properties.
+ * @param {string} props.title - The visible title for the header column.
+ * @param {string} props.column - The data key to sort by (e.g., 'user', 'post').
+ * @param {function} props.dispatch - The dispatch function from useReducer.
+ */
 function TableHeaderWithSort({ title, column, dispatch }) {
   const handleSort = (type) => {
     dispatch({ type, payload: column });

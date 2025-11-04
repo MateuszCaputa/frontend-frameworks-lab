@@ -2,6 +2,11 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+/**
+ * (Lab 4, Preparation)
+ * Renders the placeholder page for Lab 4.
+ * Explains the lab's topics (Context, Forms) and links to the 'Add Person' form.
+ */
 function Lab04() {
   return (
     <Card className="text-center bg-light p-5 rounded shadow-sm border-0">

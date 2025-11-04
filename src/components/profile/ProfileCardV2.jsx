@@ -6,6 +6,20 @@ import { Link } from "react-router-dom";
 
 import useDispatch from "../hooks/useDispatch";
 
+/**
+ * (Lab 3, Task 1, 3, 6, 8) & (Lab 4, Task 3, 8)
+ * Renders an interactive profile card for a single person.
+ * This component is "dumb" and gets its state from props.
+ * It uses the 'useDispatch' hook to send actions (rate, delete, check).
+ *
+ * @param {object} props - Component properties.
+ * @param {string|number} props.id - Person's unique ID.
+ * @param {string} props.name - Person's name.
+ * @param {number} props.rating - Person's rating (0-10).
+ * @param {boolean} props.checked - Person's checked status.
+ * @param {string} props.email - Person's email.
+ * @param {string} props.phone - Person's phone number.
+ */
 function ProfileCardV2({ id, name, rating, checked, email, phone }) {
   const dispatch = useDispatch();
 

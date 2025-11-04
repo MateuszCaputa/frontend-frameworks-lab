@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../../data/AppContext";
 
+/**
+ * (Lab 4, Task 6 & 7)
+ * Renders the form for adding a new person.
+ * Uses React Hook Form for validation.
+ */
 function PersonAddForm() {
   const { dispatch } = useContext(AppContext);
   const navigate = useNavigate();
@@ -14,8 +19,8 @@ function PersonAddForm() {
   } = useForm();
 
   /**
-   * Obsługa wysłania formularza.
-   * @param {object} data - Dane z formularza.
+   * Handles the form submission.
+   * @param {object} data - Data from the form.
    */
   const onSubmit = (data) => {
     dispatch({
@@ -29,7 +34,7 @@ function PersonAddForm() {
   return (
     <Card className="shadow-sm">
       <Card.Header>
-        <Card.Title>Dodaj nową osobę (React Hook Form)</Card.Title>
+        <Card.Title>Dodaj nową osobę</Card.Title>
       </Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>

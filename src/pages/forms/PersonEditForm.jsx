@@ -3,6 +3,11 @@ import { Form, Button, Card, Alert, FormControl } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import AppContext from "../../../data/AppContext";
 
+/**
+ * (Lab 4, Task 6 & 7)
+ * Renders the form for editing an existing person.
+ * Uses plain JS/HTML FormData (as per instructions).
+ */
 function PersonEditForm() {
   const { items, dispatch } = useContext(AppContext);
   const navigate = useNavigate();
@@ -13,6 +18,9 @@ function PersonEditForm() {
   const [errors, setErrors] = useState([]);
   const [isSending, setSending] = useState(false);
 
+  /**
+   * Handles the form submission.
+   */
   const onSubmitFunction = async (e) => {
     e.preventDefault();
     setErrors([]);
@@ -50,9 +58,7 @@ function PersonEditForm() {
   return (
     <Card className="shadow-sm">
       <Card.Header>
-        <Card.Title>
-          Edytuj osobę: {personToEdit.name} (Czysty JS/HTML)
-        </Card.Title>
+        <Card.Title>Edytuj osobę: {personToEdit.name}</Card.Title>
       </Card.Header>
       <Card.Body>
         {errors.length > 0 && (
