@@ -16,6 +16,7 @@ function PersonAddForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   /**
@@ -29,6 +30,26 @@ function PersonAddForm() {
     });
 
     navigate("/lab03");
+  };
+
+  /**
+   * Formatting helper for phone number (XXX-XXX-XXX).
+   * @param {string} value - Raw input value
+   * @returns {string} Formatted value
+   */
+  const formatPhoneNumber = (value) => {
+    if (!value) return value;
+    const phoneNumber = value.replace(/[^\d]/g, "");
+    const phoneNumberLength = phoneNumber.length;
+
+    if (phoneNumberLength < 4) return phoneNumber;
+    if (phoneNumberLength < 7) {
+      return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
+    }
+    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(
+      3,
+      6
+    )}-${phoneNumber.slice(6, 9)}`;
   };
 
   return (
@@ -77,15 +98,20 @@ function PersonAddForm() {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPersonPhone">
-            <Form.Label>Telefon</Form.Label>
+            <Form.Label>Numer telefonu</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Wprowadź telefon (np. 123-456-789)"
+              placeholder="Wprowadź nr. telefonu (np. 123-456-789)"
+              maxLength={11}
               {...register("phone", {
-                required: "Telefon jest wymagany.",
+                required: "Numer telefonu jest wymagany.",
                 pattern: {
                   value: /^[0-9]{3}-[0-9]{3}-[0-9]{3}$/,
                   message: "Format musi być 123-456-789.",
+                },
+                onChange: (e) => {
+                  const formatted = formatPhoneNumber(e.target.value);
+                  setValue("phone", formatted);
                 },
               })}
               isInvalid={!!errors.phone}

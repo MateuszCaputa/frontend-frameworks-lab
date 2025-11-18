@@ -6,7 +6,7 @@ import AppContext from "../../../data/AppContext";
 /**
  * (Lab 4, Task 6 & 7)
  * Renders the form for editing an existing person.
- * Uses plain JS/HTML FormData (as per instructions).
+ * Uses plain JS/HTML FormData validation with manual input masking.
  */
 function PersonEditForm() {
   const { items, dispatch } = useContext(AppContext);
@@ -18,6 +18,26 @@ function PersonEditForm() {
   const [errors, setErrors] = useState([]);
   const [isSending, setSending] = useState(false);
 
+  const [phoneValue, setPhoneValue] = useState(personToEdit?.phone || "");
+
+  /**
+   * Handles manual phone number masking (XXX-XXX-XXX).
+   */
+  const handlePhoneChange = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, "");
+    let formatted = rawValue;
+
+    if (rawValue.length > 3 && rawValue.length <= 6) {
+      formatted = `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
+    } else if (rawValue.length > 6) {
+      formatted = `${rawValue.slice(0, 3)}-${rawValue.slice(
+        3,
+        6
+      )}-${rawValue.slice(6, 9)}`;
+    }
+    setPhoneValue(formatted);
+  };
+
   /**
    * Handles the form submission.
    */
@@ -26,9 +46,26 @@ function PersonEditForm() {
     setErrors([]);
 
     const data = new FormData(e.target);
+    const name = data.get("name");
+    const email = data.get("email");
+    const phone = data.get("phone");
 
-    if (data.get("name").length < 3) {
-      setErrors(["Imię musi mieć co najmniej 3 znaki."]);
+    const newErrors = [];
+
+    if (!name || name.length < 3) {
+      newErrors.push("Imię musi mieć co najmniej 3 znaki.");
+    }
+
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      newErrors.push("Podaj poprawny adres email.");
+    }
+
+    if (!phone || !/^[0-9]{3}-[0-9]{3}-[0-9]{3}$/.test(phone)) {
+      newErrors.push("Numer telefonu musi być w formacie 123-456-789.");
+    }
+
+    if (newErrors.length > 0) {
+      setErrors(newErrors);
       return;
     }
 
@@ -37,9 +74,9 @@ function PersonEditForm() {
 
     const updatedPerson = {
       id: personToEdit.id,
-      name: data.get("name"),
-      email: data.get("email"),
-      phone: data.get("phone"),
+      name: name,
+      email: email,
+      phone: phone,
     };
 
     dispatch({
@@ -95,13 +132,19 @@ function PersonEditForm() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="phone">Telefon</Form.Label>
+            <Form.Label htmlFor="phone">Numer telefonu</Form.Label>
             <FormControl
               required
               id="phone"
               name="phone"
-              defaultValue={personToEdit.phone}
+              value={phoneValue}
+              onChange={handlePhoneChange}
+              maxLength={11}
+              placeholder="123-456-789"
             />
+            <Form.Text className="text-muted">
+              Format: 123-456-789 (uzupełniany automatycznie)
+            </Form.Text>
           </Form.Group>
 
           <Button disabled={isSending} type="submit" variant="primary">
