@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, Button, Form, Stack, Badge } from "react-bootstrap";
+import { Card, Button, Form, Badge } from "react-bootstrap";
 import RatingBar from "../ui/RatingBar";
 import { Link } from "react-router-dom";
 
@@ -37,14 +37,18 @@ function ProfileCardV2({ id, name, rating, checked, email, phone }) {
 
   return (
     <Card
-      className={`shadow-sm w-100 ${checked ? "border-primary border-2" : ""}`}
-      style={{ maxWidth: "350px", transition: "border 0.2s" }}
+      className={`shadow-sm w-100 card-hover`}
+      style={{
+        maxWidth: "350px",
+        transition: "all 0.2s",
+        border: checked ? "2px solid #10b981" : "2px solid transparent",
+      }}
     >
       <Card.Body>
         <div className="d-flex justify-content-between align-items-center mb-2">
-          <Card.Title className="mb-0">{name}</Card.Title>
+          <Card.Title className="mb-0 h5 font-weight-bold">{name}</Card.Title>
           {checked && (
-            <Badge bg="primary" pill>
+            <Badge pill className="custom-badge-checked" bg="">
               Zaznaczono
             </Badge>
           )}
@@ -53,34 +57,47 @@ function ProfileCardV2({ id, name, rating, checked, email, phone }) {
         <RatingBar rate={rating} />
 
         <Card.Text className="text-muted small mt-2">
-          {email} <br /> {phone}
+          <strong>Email:</strong> {email} <br />
+          <strong>Tel:</strong> {phone}
         </Card.Text>
 
-        <Stack direction="horizontal" gap={2} className="mt-3">
+        <div className="d-flex mt-3 pt-3 border-top">
           <Button
             as={Link}
             to={`/lab04/edit/${id}`}
-            variant="outline-secondary"
+            variant="secondary"
             size="sm"
+            className="flex-grow-1 mr-2"
           >
-            Edit
+            Edytuj
           </Button>
 
-          <Button variant="primary" size="sm" onClick={handleRate}>
-            Rate ({rating})
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleRate}
+            className="flex-grow-1 mr-2"
+          >
+            Ocena ({rating})
           </Button>
-          <Button variant="danger" size="sm" onClick={handleDelete}>
-            Delete
+
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={handleDelete}
+            title="Usuń"
+          >
+            Usuń
           </Button>
-        </Stack>
+        </div>
 
         <Form.Check
           type="switch"
           id={`check-${id}`}
-          label="Zaznacz"
+          label={checked ? "Odznacz" : "Zaznacz"}
           checked={checked}
           onChange={handleCheck}
-          className="mt-3 border-top pt-3"
+          className="mt-3 text-muted small"
         />
       </Card.Body>
     </Card>

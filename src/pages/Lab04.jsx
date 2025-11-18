@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 /**
@@ -9,22 +9,32 @@ import { Link } from "react-router-dom";
  */
 function Lab04() {
   return (
-    <Card className="text-center bg-light p-5 rounded shadow-sm border-0">
-      <Card.Body>
-        <h1 className="display-4">Laboratorium 4: Kontekst i Formularze</h1>
+    <div className="text-center">
+      <Card className="bg-light p-4 rounded shadow-sm text-center mb-5 border-0">
+        <h1 className="display-5">Laboratorium 4: Kontekst i Formularze</h1>
         <p className="lead">
-          Na tej stronie zaimplementowaliśmy Kontekst API oraz formularze.
+          Zarządzanie stanem globalnym (Context API) oraz obsługa formularzy
+          (React Hook Form).
         </p>
-        <hr className="my-4" />
+      </Card>
+
+      <Alert
+        variant="info"
+        className="d-inline-block shadow-sm p-4"
+        style={{ maxWidth: "700px" }}
+      >
+        <h4 className="alert-heading">Wskazówka</h4>
         <p>
-          Użyj nawigacji, aby dodać nową osobę, lub przejdź do Lab 3, aby
-          edytować istniejącą.
+          Aby przetestować formularze, możesz skorzystać z paska nawigacji (link
+          "Laboratorium 4 (Dodaj)") lub kliknąć przycisk poniżej. Edycja
+          dostępna jest z poziomu listy w Lab 3.
         </p>
-        <Button as={Link} to="/lab04/add" variant="primary" size="lg">
+        <hr />
+        <Button as={Link} to="/lab04/add" variant="primary">
           Przejdź do formularza dodawania
         </Button>
-      </Card.Body>
-    </Card>
+      </Alert>
+    </div>
   );
 }
 

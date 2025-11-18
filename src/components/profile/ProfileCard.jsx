@@ -12,11 +12,12 @@ import ProfileParagraph from "./ProfileParagraph";
  * @param {string} props.email - User's email address.
  * @param {string} props.phone - User's phone number.
  * @param {string} props.birthDate - User's birth date.
+ * @param {string} props.className - Additional CSS classes.
  */
-function ProfileCard({ id, name, email, phone, birthDate }) {
+function ProfileCard({ id, name, email, phone, birthDate, className = "" }) {
   return (
     <div
-      className="card shadow-sm mb-4"
+      className={`card shadow-sm mb-4 ${className}`}
       style={{ maxWidth: "300px", minHeight: "220px" }}
     >
       <div className="card-body">
@@ -40,6 +41,7 @@ ProfileCard.propTypes = {
   email: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
   birthDate: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default ProfileCard;

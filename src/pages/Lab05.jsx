@@ -1,5 +1,12 @@
 import React, { useEffect, useReducer } from "react";
-import { Table, Spinner, Alert, Accordion, Button } from "react-bootstrap";
+import {
+  Table,
+  Spinner,
+  Alert,
+  Accordion,
+  Button,
+  Card,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useFetch from "../components/hooks/useFetch";
 import TableDataReducer from "../../data/TableDataReducer";
@@ -66,10 +73,15 @@ function Lab05() {
 
   return (
     <div>
-      <h1 className="mb-4">
-        Lab 5: Pobieranie danych (useEffect) i Sortowanie (useReducer)
-      </h1>
-      <Table striped bordered hover responsive>
+      <Card className="bg-light p-4 rounded shadow-sm text-center mb-5">
+        <h1 className="display-5">Laboratorium 5: Efekty i API</h1>
+        <p className="lead">
+          Pobieranie danych z zewnętrznego serwisu (useEffect), własne hooki i
+          zaawansowane sortowanie.
+        </p>
+      </Card>
+
+      <Table striped bordered hover responsive className="bg-white">
         <thead>
           <tr>
             <TableHeaderWithSort

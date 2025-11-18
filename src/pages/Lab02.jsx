@@ -16,16 +16,27 @@ function Lab02() {
 
   if (!paramId) {
     return (
-      <Alert variant="info" className="text-center">
-        <h2>Laboratorium 2: Szczegóły Profilu</h2>
-        <p className="lead">
-          Brak identyfikatora osoby. Wybierz ID z listy lub przejdź do Lab 1.
-        </p>
-        <hr />
-        <Button variant="primary" as={NavLink} to="/lab02/1">
-          Zobacz Przykładowy Profil (ID 1)
-        </Button>
-      </Alert>
+      <div className="text-center">
+        <Card className="bg-light p-4 rounded shadow-sm text-center mb-5">
+          <h1 className="display-5">Laboratorium 2: Routing i URL</h1>
+          <p className="lead">
+            Ta strona obsługuje dynamiczne parametry ścieżki. Wybierz profil z
+            listy w Lab 1, aby zobaczyć szczegóły.
+          </p>
+        </Card>
+
+        <Alert variant="info" className="d-inline-block shadow-sm">
+          <h4 className="alert-heading">Wskazówka</h4>
+          <p>
+            Aby przetestować tę stronę, musisz podać ID w adresie URL lub użyć
+            poniższego przycisku.
+          </p>
+          <hr />
+          <Button variant="primary" as={NavLink} to="/lab02/1">
+            Zobacz Przykładowy Profil (ID 1)
+          </Button>
+        </Alert>
+      </div>
     );
   }
 
@@ -33,7 +44,7 @@ function Lab02() {
 
   if (!person) {
     return (
-      <Alert variant="danger" className="text-center">
+      <Alert variant="danger" className="text-center mt-5">
         <h2>Nie znaleziono</h2>
         <p className="lead">
           Nie znaleziono osoby o identyfikatorze:{" "}
@@ -47,10 +58,12 @@ function Lab02() {
   }
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center align-items-center flex-column">
+      <h2 className="mb-4 text-muted">Szczegóły Profilu</h2>
+
       <Card className="shadow-lg p-3" style={{ maxWidth: "400px" }}>
         <Card.Title className="text-center text-success mb-4">
-          Szczegóły Profilu (ID: {person.id})
+          Profil Użytkownika (ID: {person.id})
         </Card.Title>
         <ProfileCard {...person} />
         <Button

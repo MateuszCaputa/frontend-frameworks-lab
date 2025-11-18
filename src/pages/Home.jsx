@@ -13,7 +13,7 @@ function Home() {
           Witaj w Laboratorium Frameworki Frontendowe
         </h1>
         <p className="lead">
-          Budujemy naszą aplikację, realizując zadania z kolejnych laboratoriów.
+          Aplikacja realizująca zadania z kolejnych laboratoriów.
         </p>
         <hr className="my-4" />
         <p>

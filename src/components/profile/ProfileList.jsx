@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import ProfileCard from "./ProfileCard";
 import { NavLink } from "react-router-dom";
-import { Card } from "react-bootstrap";
 
 /**
  * (Lab 1, Task 7)
@@ -23,14 +22,13 @@ function ProfileList({ people, cols = 3 }) {
           key={person.id}
           className={`${colClass} d-flex justify-content-center`}
         >
-          <Card
-            as={NavLink}
+          <NavLink
             to={`/lab02/${person.id}`}
-            className="w-100 text-decoration-none border-0"
-            style={{ transition: "transform 0.2s", cursor: "pointer" }}
+            className="w-100 text-decoration-none w-100"
+            style={{ maxWidth: "300px" }}
           >
-            <ProfileCard {...person} />
-          </Card>
+            <ProfileCard {...person} className="card-hover" />
+          </NavLink>
         </div>
       ))}
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { people } from "../module-data";
 import ProfileList from "../components/profile/ProfileList";
 import { Alert } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 /**
  * (Lab 1) & (Lab 2, Preparation)
@@ -19,7 +20,13 @@ function Lab01() {
 
   return (
     <>
-      <h1 className="mb-4 text-center">Laboratorium 1: Lista Profili</h1>
+      <Card className="bg-light p-4 rounded shadow-sm text-center mb-5">
+        <h1 className="display-5">Laboratorium 1: Lista Profili</h1>
+        <p className="lead">
+          Podstawowe komponenty React, przekazywanie właściwości (props) i
+          generowanie listy.
+        </p>
+      </Card>
 
       <ProfileList people={people} cols={3} />
     </>
