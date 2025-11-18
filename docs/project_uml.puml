@@ -1,0 +1,276 @@
+@startuml
+
+' Stylizacja diagramu
+skinparam componentStyle uml2
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+title Szczegółowy Diagram Architektury (Frontend Frameworks Lab 1-6)
+
+' --- PAKIET: DATA & CONTEXT ---
+package "data & context" {
+  class AppContext <<Context>> {
+    + items: Array<Person>
+    + dispatch: Function
+  }
+
+  class AppProvider <<Provider>> {
+    - state: Array<Person>
+    - dispatch: Function
+    --
+    + render(): JSX
+  }
+
+  class AppReducer <<Reducer>> {
+    + state: Array<Person>
+    + action: {type, payload/id}
+    --
+    + case "check"
+    + case "rate"
+    + case "delete"
+    + case "add" (Lab 4)
+    + case "edit" (Lab 4)
+  }
+
+  class TableDataReducer <<Reducer>> {
+    + state: {data, originalData}
+    + action: {type, payload}
+    --
+    + case "set_data"
+    + case "sort_asc"
+    + case "sort_desc"
+    + case "sort_natural"
+  }
+
+  object initialData {
+    + id: number
+    + name: string
+    + email: string
+    + ...
+  }
+}
+
+' --- PAKIET: HOOKS ---
+package "hooks" {
+  class useData <<Custom Hook>> {
+    --
+    + returns: Array<Person>
+  }
+  
+  class useDispatch <<Custom Hook>> {
+    --
+    + returns: Function (dispatch)
+  }
+
+  class useFetch <<Custom Hook>> {
+    # url: string
+    --
+    - data: any
+    - loading: boolean
+    - error: Error
+    --
+    + returns: { data, loading, error }
+  }
+}
+
+' --- PAKIET: LAYOUT ---
+package "layouts" {
+  class RootLayout <<Layout>> {
+    --
+    + render(): JSX (NavBar, Outlet, Footer)
+  }
+  
+  class NavBarMenuApp <<Component>> {
+    --
+    + render(): JSX (NavLinks)
+  }
+  
+  class FooterApp <<Component>> {
+    - currentYear: number
+    - authorEmail: string
+  }
+}
+
+' --- PAKIET: PAGES & ROUTES ---
+package "pages" {
+  class Home <<Page>>
+  class NotFound <<Page>>
+  
+  package "Lab 1 & 2" {
+    class Lab01 <<Page>> {
+      - people: Array (Lab 1 logic)
+    }
+    class Lab02 <<Page Details>> {
+      # id: useParams
+      - person: Object
+    }
+  }
+
+  package "Lab 3 & 4" {
+    class Lab03 <<Page>>
+    class Lab04 <<Page Info>>
+    
+    class PersonAddForm <<Form Page>> {
+      - dispatch: useContext
+      - navigate: useNavigate
+      - formState: { errors }
+      --
+      - formatPhoneNumber(value): string
+      + onSubmit(data): void
+    }
+    
+    class PersonEditForm <<Form Page>> {
+      # id: useParams
+      - errors: useState
+      - isSending: useState
+      - phoneValue: useState
+      --
+      - handlePhoneChange(e): void
+      + onSubmitFunction(e): Promise
+    }
+  }
+
+  package "Lab 5" {
+    class Lab05 <<Page>> {
+      - tableState: useReducer
+      - posts, users, comments: useFetch
+      --
+      + useEffect(): mergeData
+    }
+    class UserDetailsPage <<Details Page>> {
+      # id: useParams
+      - user: useFetch
+    }
+    class PostCommentsPage <<Details Page>> {
+      # id: useParams
+      - post, comments: useFetch
+    }
+  }
+
+  package "Lab 6" {
+    class Lab06 <<Page>> {
+      - chartData: Array
+    }
+  }
+}
+
+' --- PAKIET: COMPONENTS ---
+package "components" {
+  class App <<Main Entry>> {
+    + Routes definition
+  }
+  
+  package "profile" {
+    class ProfileList <<Component>> {
+      # people: Array<Person>
+      # cols: number
+      --
+      + render(): JSX (List of Cards)
+    }
+    
+    class ProfileCard <<Component>> {
+      # id: number
+      # name: string
+      # email: string
+      # phone: string
+      # birthDate: string
+      # className: string
+    }
+    
+    class ProfileCardV2 <<Interactive Component>> {
+      # id: number|string
+      # name: string
+      # rating: number
+      # checked: boolean
+      # email: string
+      # phone: string
+      --
+      - handleDelete(): void
+      - handleRate(): void
+      - handleCheck(): void
+    }
+    
+    class ProfileParagraph <<Atom>> {
+      # label: string
+      # value: string|number
+    }
+  }
+
+  package "common" {
+    class MyContainer <<Generic Container>> {
+      # element: React.ComponentType
+      --
+      - items: useData()
+    }
+    
+    class TableHeaderWithSort <<Atom>> {
+      # title: string
+      # column: string
+      # dispatch: Function
+      --
+      - handleSort(type): void
+    }
+    
+    class LineChart <<SVG Component>> {
+      # data: Array<number>
+      # stroke: string
+      # background: string
+    }
+  }
+
+  package "ui" {
+    class RatingBar <<Atom>> {
+      # rate: number
+    }
+  }
+}
+
+' --- RELACJE (RELATIONSHIPS) ---
+
+' Główne przepływy
+App *-- AppProvider
+App *-- RootLayout
+App ..> AppReducer : uses via Provider
+AppProvider ..> initialData : inits
+AppProvider --|> AppContext : provides
+
+' Layout
+RootLayout *-- NavBarMenuApp
+RootLayout *-- FooterApp
+RootLayout ..> Home : renders via Router
+RootLayout ..> Lab01 : renders via Router
+RootLayout ..> Lab05 : renders via Router
+
+' Hooki i Kontekst
+useData ..> AppContext : consumes
+useDispatch ..> AppContext : consumes
+ProfileCardV2 ..> useDispatch : uses
+PersonAddForm ..> useDispatch : uses
+PersonEditForm ..> useDispatch : uses
+PersonEditForm ..> useData : uses
+MyContainer ..> useData : uses
+
+' Lab 1 & 2
+Lab01 *-- ProfileList
+ProfileList *-- ProfileCard
+ProfileCard *-- ProfileParagraph
+
+' Lab 3 & 4
+Lab03 *-- MyContainer
+MyContainer ..> ProfileCardV2 : renders as prop (element)
+ProfileCardV2 *-- RatingBar
+
+' Lab 5
+Lab05 ..> useFetch : fetches API data
+Lab05 ..> TableDataReducer : manages sort state
+Lab05 *-- TableHeaderWithSort
+Lab05 ..> UserDetailsPage : links to
+Lab05 ..> PostCommentsPage : links to
+UserDetailsPage ..> useFetch : uses
+PostCommentsPage ..> useFetch : uses
+
+' Lab 6
+Lab06 *-- LineChart
+
+@enduml

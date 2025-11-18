@@ -15,6 +15,14 @@ Kod źródłowy został w pełni udokumentowany (JSDoc w języku angielskim dla 
 - PropTypes (walidacja typów danych w komponentach)
 - ESLint (statyczna analiza kodu)
 
+## Architektura Aplikacji
+
+Poniższy diagram UML przedstawia strukturę komponentów, przepływ danych (Context API, Reducery) oraz wykorzystanie własnych hooków w projekcie.
+
+![Diagram Architektury](docs/architecture_diagram.png)
+
+_Diagram wygenerowany przy użyciu PlantUML. Źródło dostępne w pliku `docs/project_uml.puml`._
+
 ## Implementacja Laboratoriów
 
 Projekt podzieliłem na historyczne gałęzie (branche) Git, które służą podglądu każdego etapu pracy. Gałąź `main` zawiera aktualną, scaloną wersję wszystkich zadań.
